@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order, Message & Chat System</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+    body {
+      background: #f0f4f8;
+      color: #333;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    .tab {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .tab button {
+      padding: 10px 20px;
+      cursor: pointer;
+      border: none;
+      background: #2c3e50;
+      color: white;
+      border-radius: 5px;
+    }
+    .tab button.active {
+      background: #3498db;
+    }
+    .content {
+      display: none;
+      background: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .content.active {
+      display: block;
+    }
+    .customer-form, .admin-login, .admin-inbox, .customer-view {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    input, textarea {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px;
+      background: #2ecc71;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #27ae60;
+    }
+    .chat-container, .inbox-item, .view-item {
+      padding: 10px;
+      margin-bottom: 10px;
+      background: #ecf0f1;
+      border-radius: 5px;
+    }
+    .chat-container .message, .inbox-item .time, .view-item .time {
+      font-size: 0.8rem;
+      color: #7f8c8d;
+    }
+    .message {
+      margin: 5px 0;
+    }
+    .message .sender {
+      font-weight: bold;
+    }
+    .reply-section {
+      margin-top: 10px;
+      display: none;
+    }
+    .reply-section.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="tab">
+      <button class="tablink active" onclick="openTab('customer')">Customer</button>
+      <button class="tablink" onclick="openTab('admin')">Admin</button>
+    </div>
+
+    <div id="customer" class="content active">
+      <h2>Place Order, Send Message, or Chat</h2>
+      <div class="customer-form">
+        <input type="text" id="customerName" placeholder="Your Name">
+        <textarea id="customerInput" placeholder="Enter order/message or start chatting"></textarea>
+        <button onclick="submitCustomerInput()">Submit</button>
+      </div>
+      <div class="chat-container" id="customerChat"></div>
+    </div>
+
+    <div id="admin" class="content">
+      <h2>Admin Login</h2>
+      <div class="admin-login">
+        <input type="password" id="adminPassword" placeholder="Enter Password">
+        <button onclick="loginAdmin()">Login</button>
+      </div>
+      <div id="adminInbox" class="admin-inbox" style="display: none;"></div>
+    </div>
+  </div>
+
+  <script>
+    const ADMIN_PASSWORD = "ARGHO9572"; // Change this password as needed
+    let currentUser = null;
+
+    function openTab(tabName) {
+      document.querySelectorAll('.tablink').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.content').forEach(content => content.classList.remove('active'));
+      document.querySelector(`.tablink[onclick="openTab('${tabName}')"]`).classList.add('active');
+      document.getElementById(tabName).classList.add('active');
+      if (tabName === 'customer') loadCustomerChat();
+      if (tabName === 'admin' && document.getElementById('adminInbox').style.display === 'block') loadAdminInbox();
+    }
+
+    function submitCustomerInput() {
+      const name = document.getElementById('customerName').value.trim();
+      const message = document.getElementById('customerInput').value.trim();
+      if (name && message) {
+        const timestamp = new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' });
+        let chats = JSON.parse(localStorage.getItem('chats')) || [];
+        chats.push({ name, message, timestamp, reply: '', type: 'customer' });
+        localStorage.setItem('chats', JSON.stringify(chats));
+        document.getElementById('customerInput').value = '';
+        loadCustomerChat();
+      } else {
+        alert('Please fill in all fields.');
+      }
+    }
+
+    function loadCustomerChat() {
+      const chat = document.getElementById('customerChat');
+      chat.innerHTML = '';
+      const chats = JSON.parse(localStorage.getItem('chats')) || [];
+      const userChats = chats.filter(item => item.name === (currentUser || document.getElementById('customerName').value));
+      userChats.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'message';
+        div.innerHTML = `<span class="sender">${item.name}</span>: ${item.message} <span class="time">${item.timestamp}</span><br>Reply: ${item.reply || 'No reply yet'}`;
+        chat.appendChild(div);
+      });
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function loginAdmin() {
+      const password = document.getElementById('adminPassword').value;
+      if (password === ADMIN_PASSWORD) {
+        document.querySelector('.admin-login').style.display = 'none';
+        document.getElementById('adminInbox').style.display = 'block';
+        loadAdminInbox();
+      } else {
+        alert('Incorrect password!');
+      }
+    }
+
+    function loadAdminInbox() {
+      const inbox = document.getElementById('adminInbox');
+      inbox.innerHTML = '';
+      const chats = JSON.parse(localStorage.getItem('chats')) || [];
+      chats.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'inbox-item';
+        div.innerHTML = `<strong>${item.name}</strong>: ${item.message} <span class="time">${item.timestamp}</span>`;
+        const replySection = document.createElement('div');
+        replySection.className = 'reply-section';
+        replySection.innerHTML = `
+          <textarea placeholder="Type your reply..."></textarea>
+          <button onclick="sendReply(${index})">Send Reply</button>
+          <p>Reply: ${item.reply || 'No reply yet'}</p>
+        `;
+        div.appendChild(replySection);
+        inbox.appendChild(div);
+      });
+      inbox.scrollTop = inbox.scrollHeight;
+    }
+
+    function sendReply(index) {
+      const chats = JSON.parse(localStorage.getItem('chats')) || [];
+      const reply = document.querySelectorAll('.reply-section')[index].querySelector('textarea').value.trim();
+      if (reply) {
+        chats[index].reply = reply;
+        chats[index].timestamp = new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' }); // Update timestamp
+        localStorage.setItem('chats', JSON.stringify(chats));
+        loadAdminInbox();
+        loadCustomerChat(); // Update customer view with the new reply
+      }
+    }
+
+    // Initial load
+    document.querySelector('.tablink[onclick="openTab(\'customer\')"]').addEventListener('click', loadCustomerChat);
+  </script>
+</body>
+</html>

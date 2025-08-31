@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gig Order Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .gig-card {
+      background: #fff;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+    }
+
+    .gig-card:hover {
+      transform: scale(1.02);
+    }
+
+    .gig-card img {
+      height: 400px;;
+      width: 400px;
+      border-radius: 10px;
+    }
+
+    .gig-title {
+      font-size: 20px;
+      margin: 10px 0;
+      font-weight: bold;
+      color: #0d6efd;
+    }
+
+    .gig-price {
+      color: #28a745;
+      font-size: 18px;
+      margin: 5px 0 10px;
+      font-weight: bold;
+    }
+
+    .gig-desc {
+      color: #555;
+      font-size: 15px;
+      margin-bottom: 15px;
+    }
+
+    .order-btn {
+      width: 100%;
+      background-color: #0d6efd;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .order-btn:hover {
+      background-color: #0056b3;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Available Gigs</h1>
+  <div class="container">
+    
+    <!-- Gig 1 -->
+    <div class="gig-card">
+      <img src="digtal marketing.jpeg" alt="Gig 1">
+      <div class="gig-title">Professional Web Development</div>
+      <div class="gig-price">$50</div>
+      <div class="gig-desc">I will create a modern, responsive website for your business using HTML, CSS, and JavaScript.</div>
+      <button class="order-btn" onclick="orderNow('Professional Web Development', '50', 'I will create a modern, responsive website for your business using HTML, CSS, and JavaScript.')">Order on WhatsApp</button>
+    </div>
+
+    
+    
+  <script>
+    function orderNow(serviceName, price, description) {
+      const phoneNumber = "8801612369108"; // তোমার WhatsApp নাম্বার
+
+      const message = encodeURIComponent(
+        `🛒 New Order Request!\n\n` +
+        `🛠 Service: ${serviceName}\n` +
+        `💲 Price: $${price}\n` +
+        `📄 Details: ${description}\n\n` +
+        `Please confirm my order.`
+      );
+
+      const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+      window.open(whatsappURL, "_blank");
+    }
+  </script>
+</body>
+</html

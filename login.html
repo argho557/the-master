@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Login Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+    body {
+      background: url('https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+    }
+    .login-container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 40px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+    h2 {
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+    .input-group {
+      margin-bottom: 15px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+    }
+    .social-buttons {
+      margin-top: 20px;
+    }
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: #fff;
+      width: 100%;
+    }
+    .google-btn { background: #db4437; }
+    .facebook-btn { background: #3b5998; }
+    .google-btn:hover { background: #c23321; }
+    .facebook-btn:hover { background: #2d4373; }
+    .signup-btn, .delete-btn {
+      background: #2ecc71;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #fff;
+      margin-top: 10px;
+      width: 100%;
+    }
+    .signup-btn:hover, .delete-btn:hover {
+      background: #27ae60;
+    }
+    .delete-btn {
+      background: #e74c3c;
+    }
+    .delete-btn:hover {
+      background: #c0392b;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login</h2>
+    <div class="input-group">
+      <input type="email" placeholder="Email" required>
+    </div>
+    <div class="input-group">
+      <input type="password" placeholder="Password" required>
+    </div>
+    <button class="signup-btn">Sign Up</button>
+    <button class="delete-btn">Delete Account</button>
+    <div class="social-buttons">
+      <button class="social-btn google-btn">Login with Google</button>
+      <button class="social-btn facebook-btn">Login with Facebook</button>
+    </div>
+  </div>
+
+  <script>
+    // Placeholder for social login (requires backend integration)
+    document.querySelector('.google-btn').addEventListener('click', () => {
+      alert('Google login functionality requires backend integration with Google API.');
+    });
+    document.querySelector('.facebook-btn').addEventListener('click', () => {
+      alert('Facebook login functionality requires backend integration with Facebook API.');
+    });
+    document.querySelector('.signup-btn').addEventListener('click', () => {
+      alert('Sign Up functionality requires backend integration.');
+    });
+    document.querySelector('.delete-btn').addEventListener('click', () => {
+      if (confirm('Are you sure you want to delete your account?')) {
+        alert('Account deletion requires backend integration.');
+      }
+    });
+  </script>
+</body>
+</html>
