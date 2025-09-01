@@ -28,8 +28,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 50px;
+    gap: 30px;
     flex-wrap: wrap;
+    @media (max-width: 900px) {
+    
+    }
 }
 
 /* Left Side Image */
@@ -192,6 +195,34 @@
         .hover-scale {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
+        .image-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 4 কলামে সাজানো */
+    gap: 15px; /* ছবিগুলোর মাঝে গ্যাপ */
+    padding: 10px;
+    max-width: 900px;
+    margin: auto;
+
+    @media (max-width: 768px) {
+    .image-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 480px) {
+    .image-gallery {
+        grid-template-columns: 1fr;
+    }
+}
+}
+.image-gallery img:hover {
+    transform: scale(1.05); /* হোভার করলে ছবি বড় হবে */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+        
         .btn{
          
           padding: 2px 10px;
@@ -213,7 +244,7 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
-
+        
         .trust{
           font-size: 2em;
           font-style: italic;
@@ -244,7 +275,7 @@
                     <a href="#home" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
                     <a href="#about" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
                     <a href="#services" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">gigs</a>
-                    <a href="#portfolio" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Services</a>
+                    
                    
                      <a href="jk.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Message</a>
                    
@@ -364,10 +395,18 @@
  
 </div>
 
+<div class="image-gallery">
+  <img src="img1.png" alt="">
+  <img src="img2.png" alt="">
+  <img src="img 3.png" alt="">
+  <img src="img4.png" alt="">
+  <a href=""><button class="btn">See more</button></a>
+</div>
+
     <!-- Services Section -->
     <section id="services" class="py-20 bg-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold text-center mb-12 fade-in">Our Work</h2>
+            <h2 class="text-4xl font-bold text-center mb-12 fade-in">Our workflows</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="bg-white p-6 rounded-xl shadow-lg hover-scale fade-in" style="animation-delay: 0.2s;">
                     <i class="fa-solid fa-code text-4xl text-blue-600 mb-4"></i>
@@ -388,39 +427,7 @@
         </div>
     </section>
 
-    <!-- sevice Section -->
-    <section id="portfolio" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold text-center mb-12 fade-in">Our Services</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-gray-50 rounded-xl overflow-hidden shadow-lg hover-scale fade-in" style="animation-delay: 0.2s;">
-                    <img src="pro1.png" alt="Project 1" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Project One</h3>
-                        <p class="text-gray-600">A vibrant e-commerce platform with seamless user experience.</p>
-                    </div>
-                    <a href="orderdetails.html"><button class="btn">See more</button></a>
-                </div>
-                <div class="bg-gray-50 rounded-xl overflow-hidden shadow-lg hover-scale fade-in" style="animation-delay: 0.4s;">
-                    <img src="pro2.zip" alt="Project 2" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Project Two</h3>
-                        <p class="text-gray-600">A creative portfolio website for a top-tier agency.</p>
-                    </div>
-                </div>
-                <div class="bg-gray-50 rounded-xl overflow-hidden shadow-lg hover-scale fade-in" style="animation-delay: 0.6s;">
-                    <img src="proo3.zip" alt="Project 3" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Project Three</h3>
-                        <p class="text-gray-600">A powerful web app for optimized business workflows.</p>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a href="gig/webgig.html"><button class="btn">see more</button></a>
-    </section>
-
+    
     <!-- Contact Section -->
     <section id="contact" class="py-20 gradient-bg text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
